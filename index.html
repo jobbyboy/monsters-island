@@ -5650,18 +5650,18 @@ async function useBattleItem(k){
  if(it.heal&&B.solo){S.items[k]--;S.kaiHp=Math.min(10,S.kaiHp+Math.ceil(it.heal/10));refresh();await msg('Bevi la '+it.n+' e ti senti meglio!',1300);return true}
  if(it.ball){
   if(B.trainer){await msg('Non puoi catturare la creatura di un altro allenatore!',1500);return false}
-  S.items[k]--;const e=EA();await msg('Lanci la '+it.n+'!',800);
+  S.items[k]--;const e=EA();$('blog').textContent='Lanci la '+it.n+'!';$('bbtns').style.visibility='hidden';sfx('whoosh');
   const ball=(k==='trappola'&&OBJM.trappola)?(()=>{const g=new THREE.Group(),m=OBJM.trappola.clone();m.scale.setScalar(.55);m.traverse(o=>{if(o.isMesh){o.material=o.material.clone();o.material.emissiveIntensity=.5}});g.add(m);return g})():(OBJM.rete?(()=>{const g=new THREE.Group(),m=OBJM.rete.clone();m.scale.setScalar(.55);m.traverse(o=>{if(o.isMesh){o.material=o.material.clone();o.material.emissiveIntensity=.5}});g.add(m);return g})():makeCage());bscene.add(ball);AN.ball=ball;const a=POS.p.clone().add(V(.3,1.2,0)),b=POS.e.clone().add(V(0,.6,0));
   for(let i=0;i<=16;i++){const f=i/16;ball.position.lerpVectors(a,b,f);ball.position.y+=Math.sin(f*Math.PI)*1.6;await sleep(24)}
   flashMonster(OBJ.e,true);for(let i=0;i<=8;i++){AN.e.scale=1-i/8;await sleep(25)}flashMonster(OBJ.e,false);
   for(let i=0;i<10;i++){ball.position.y=Math.max(.22,ball.position.y-.06);await sleep(16)}AN.ball=null;ball.rotation.set(0,0,0);
   const st=stats(e),ch=Math.min(.97,SP[e.id].cr*it.ball*(1-.7*e.hp/st.hp)+.06),ok=R()<ch,shakes=ok?3:(R()<ch*1.5?2:R()<.5?1:0);
-  for(let s=0;s<shakes;s++){for(let j=0;j<8;j++){ball.rotation.z=Math.sin(j/8*Math.PI*2)*.5;await sleep(28)}ball.rotation.z=0;await msg('...',450)}
+  $('blog').textContent=nm(e)+' è imprigionato...';await sleep(500);for(let s=0;s<shakes;s++){sfx('thud');for(let j=0;j<10;j++){ball.rotation.z=Math.sin(j/10*Math.PI*2)*.55;await sleep(32)}ball.rotation.z=0;$('blog').textContent=nm(e)+' è imprigionato'+' .'.repeat(s+1);await sleep(650)}
   if(ok){ball.traverse(c=>{if(c.material&&c.material.emissive){c.material.emissive.set("#ffcc33");c.material.emissiveIntensity=.6}});await msg('Preso! '+nm(e)+' è stato catturato!',1600);delete e.evo;S.dex[e.id]=true;S.capTot=(S.capTot==null?S.team.length+(S.box||[]).length:S.capTot)+1;gainXP(40+(XPR[SP[e.id].r]||0)+(S.dex[e.id]===true&&!S.dexXp?.[e.id]?30:0),'cattura');S.dexXp=S.dexXp||{};S.dexXp[e.id]=1;
    if(S.team.length<6)S.team.push(e);else{S.box.push(e);await msg(nm(e)+' è stato mandato al Deposito.',1400)}
    bscene.remove(ball);disposeObj(ball);B.over='caught';return true}
   bscene.remove(ball);disposeObj(ball);for(let i=0;i<=8;i++){AN.e.scale=i/8;await sleep(20)}
-  await msg(['Oh no! Si è liberato!','Ci eri quasi!','Accidenti, ha rotto la gabbia!'][ri(0,2)],1300);return true}
+  sfx('hurt',e.id);await msg(nm(e)+' si è liberato! '+['Ci eri quasi!','Riprova!','Indeboliscilo ancora!'][ri(0,2)],1300);return true}
  if(it.heal){const p=PA(),mx=stats(p).hp;if(p.hp>=mx){await msg(nm(p)+' ha già tutti i PS.',1200);return false}S.items[k]--;p.hp=Math.min(mx,p.hp+it.heal);refresh();await msg(nm(p)+' recupera salute!',1200);return true}
  return false;
 }
