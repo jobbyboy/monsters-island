@@ -30,7 +30,7 @@ import java.net.URL;
 
 public class MainActivity extends Activity {
     // Versione del "guscio" Android: va aumentata solo quando cambia questo file Java.
-    static final int SHELL = 2;
+    static final int SHELL = 3;
     static final String BASE = "https://github.com/jobbyboy/monsters-island/releases/download/ultima/";
 
     private WebView web;
