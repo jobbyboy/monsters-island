@@ -5,7 +5,7 @@ const fs = require('fs');
 const https = require('https');
 
 const BASE = 'https://github.com/jobbyboy/monsters-island/releases/download/ultima/';
-const SHELL = 1; // versione del programma Windows: aumentarla solo quando cambia questo file
+const SHELL = 2; // versione del programma Windows: aumentarla solo quando cambia questo file
 
 function get(url, onProgress, redirects = 0) {
   return new Promise((resolve, reject) => {

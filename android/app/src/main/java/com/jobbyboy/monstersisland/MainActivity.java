@@ -30,7 +30,7 @@ import java.net.URL;
 
 public class MainActivity extends Activity {
     // Versione del "guscio" Android: va aumentata solo quando cambia questo file Java.
-    static final int SHELL = 3;
+    static final int SHELL = 4;
     static final String BASE = "https://github.com/jobbyboy/monsters-island/releases/download/ultima/";
 
     private WebView web;
@@ -65,12 +65,10 @@ public class MainActivity extends Activity {
         splash.setOrientation(LinearLayout.VERTICAL);
         splash.setGravity(Gravity.CENTER);
         splash.setBackgroundColor(Color.rgb(26, 16, 8));
-        TextView title = new TextView(this);
-        title.setText("Monsters Island");
-        title.setTextColor(Color.rgb(255, 214, 110));
-        title.setTextSize(34);
-        title.setTypeface(Typeface.SERIF, Typeface.BOLD);
-        title.setGravity(Gravity.CENTER);
+        android.widget.ImageView title = new android.widget.ImageView(this);
+        title.setImageResource(R.drawable.splash_logo);
+        title.setAdjustViewBounds(true);
+        int lsz = Math.min(getResources().getDisplayMetrics().heightPixels, getResources().getDisplayMetrics().widthPixels) * 55 / 100;
         status = new TextView(this);
         status.setText("Controllo aggiornamenti…");
         status.setTextColor(Color.rgb(240, 225, 195));
@@ -80,7 +78,7 @@ public class MainActivity extends Activity {
         bar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
         bar.setMax(100);
         bar.setIndeterminate(true);
-        splash.addView(title);
+        splash.addView(title, new LinearLayout.LayoutParams(lsz, lsz));
         splash.addView(status);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp(280), dp(12));
         splash.addView(bar, lp);

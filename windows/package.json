@@ -14,7 +14,7 @@
     "appId": "com.jobbyboy.monstersisland",
     "productName": "Monsters Island",
     "artifactName": "MonstersIsland-Setup.${ext}",
-    "files": ["main.js", "splash.html", "game/**", "icon.ico"],
+    "files": ["main.js", "splash.html", "logo.png", "game/**", "icon.ico"],
     "win": { "target": "nsis", "icon": "icon.ico" },
     "nsis": {
       "oneClick": false,

@@ -1,6 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>Monsters Island</title>
 <style>html,body{margin:0;height:100%;background:#1a1008;color:#f0e1c3;font-family:Georgia,serif;display:flex;align-items:center;justify-content:center;flex-direction:column}
-h1{color:#ffd66e;font-size:42px;margin:0 0 14px;text-shadow:0 3px 0 #4a2a0a}#s{font-size:17px;margin-bottom:12px}
+img{width:min(52vh,70vw);height:auto;margin-bottom:10px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.7));animation:lp 2.4s ease-in-out infinite alternate}@keyframes lp{to{transform:scale(1.03)}}
+html,body{background:radial-gradient(circle at 50% 40%,#3a2410,#120a04 75%)!important}#s{font-size:17px;margin-bottom:12px}
 .b{width:320px;height:12px;border:2px solid #c99a45;border-radius:7px;overflow:hidden;background:#2b1b0d}#p{height:100%;width:0;background:linear-gradient(90deg,#ffcf3a,#fff3a8);transition:width .2s}</style></head>
-<body><h1>Monsters Island</h1><div id="s">Controllo aggiornamenti…</div><div class="b"><div id="p"></div></div>
+<body><img src="logo.png" alt="Monsters Island"><div id="s">Controllo aggiornamenti…</div><div class="b"><div id="p"></div></div>
 <script>window.addEventListener('message',e=>{const d=e.data||{};if(d.t)document.getElementById('s').textContent=d.t;if(d.p!=null)document.getElementById('p').style.width=d.p+'%'})</script></body></html>
