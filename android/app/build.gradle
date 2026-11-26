@@ -1,15 +1,35 @@
 plugins { id 'com.android.application' }
 android {
     namespace 'com.jobbyboy.monstersisland'
-    compileSdk 34
+    compileSdk 35
     defaultConfig {
         applicationId "com.jobbyboy.monstersisland"
         minSdk 24
-        targetSdk 34
+        targetSdk 35
         versionCode (System.getenv("GITHUB_RUN_NUMBER") ? System.getenv("GITHUB_RUN_NUMBER").toInteger() : 1)
         versionName "0." + (System.getenv("GITHUB_RUN_NUMBER") ?: "1")
     }
-    buildTypes { debug { debuggable true } }
+    signingConfigs {
+        upload {
+            def ks = System.getenv("MI_KEYSTORE")
+            if (ks && file(ks).exists()) {
+                storeFile file(ks)
+                storePassword System.getenv("MI_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("MI_KEY_ALIAS") ?: "monsters"
+                keyPassword System.getenv("MI_KEY_PASSWORD") ?: System.getenv("MI_KEYSTORE_PASSWORD")
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            debuggable true
+            if (System.getenv("MI_KEYSTORE")) signingConfig signingConfigs.upload
+        }
+        release {
+            minifyEnabled false
+            if (System.getenv("MI_KEYSTORE")) signingConfig signingConfigs.upload
+        }
+    }
     compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
     androidResources { noCompress 'html', 'js' }
 }

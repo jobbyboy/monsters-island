@@ -25,9 +25,20 @@ jobs:
           mkdir -p android/app/src/main/assets
           curl -sSL https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js -o android/app/src/main/assets/three.min.js
           sed 's#https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js#three.min.js#' index.html > android/app/src/main/assets/index.html
+      - name: Chiave di firma fissa (se presente nei segreti)
+        env:
+          KS_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+        run: |
+          if [ -n "$KS_B64" ]; then echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"; echo "MI_KEYSTORE=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"; echo "Firma fissa attiva"; else echo "Nessuna chiave nei segreti: firma di prova"; fi
       - name: Compila
         working-directory: android
-        run: gradle assembleDebug --no-daemon --stacktrace
+        env:
+          MI_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          MI_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          MI_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          gradle assembleDebug --no-daemon --stacktrace
+          if [ -n "$MI_KEYSTORE" ]; then gradle bundleRelease --no-daemon --stacktrace; cp app/build/outputs/bundle/release/app-release.aab ../MonstersIsland.aab; fi
       - name: Rinomina APK e prepara l'aggiornamento automatico
         run: |
           cp android/app/build/outputs/apk/debug/app-debug.apk MonstersIsland.apk
@@ -40,7 +51,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: MonstersIsland-APK
-          path: MonstersIsland.apk
+          path: |
+            MonstersIsland.apk
+            MonstersIsland.aab
+          if-no-files-found: ignore
       - name: Pubblica come ultima versione
         uses: softprops/action-gh-release@v2
         with:
