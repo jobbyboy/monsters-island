@@ -28,10 +28,14 @@ jobs:
       - name: Compila
         working-directory: android
         run: gradle assembleDebug --no-daemon --stacktrace
-      - name: Rinomina APK
+      - name: Rinomina APK e prepara l'aggiornamento automatico
         run: |
           cp android/app/build/outputs/apk/debug/app-debug.apk MonstersIsland.apk
-          echo "{\"code\": ${GITHUB_RUN_NUMBER}}" > version.json
+          cp android/app/src/main/assets/index.html index.html
+          cp android/app/src/main/assets/three.min.js three.min.js
+          SHELL_V=$(grep -o 'SHELL = [0-9]*' android/app/src/main/java/com/jobbyboy/monstersisland/MainActivity.java | grep -o '[0-9]*')
+          echo "{\"code\": ${GITHUB_RUN_NUMBER}, \"game\": ${GITHUB_RUN_NUMBER}, \"shell\": ${SHELL_V}}" > version.json
+          cat version.json
       - uses: actions/upload-artifact@v4
         with:
           name: MonstersIsland-APK
@@ -45,4 +49,6 @@ jobs:
           files: |
             MonstersIsland.apk
             version.json
+            index.html
+            three.min.js
           make_latest: true

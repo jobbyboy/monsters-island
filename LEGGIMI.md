@@ -14,3 +14,7 @@ Ogni volta che il gioco viene aggiornato, GitHub compila da solo un APK nuovo.
 1. Apri la sezione **Releases** (a destra nella pagina del repository) → **Monsters Island – ultima versione**.
 2. Scarica **MonstersIsland.apk** sul telefono e installalo (consenti l'installazione da questa fonte).
 3. Per aggiornare: riscarica l'APK e installalo sopra quello vecchio, i salvataggi restano.
+
+## Aggiornamento automatico
+All'avvio l'app controlla se c'è una versione nuova del gioco: se c'è la scarica da sola (barra di avanzamento) e poi parte il gioco; se hai già l'ultima, il gioco parte subito. Senza internet parte l'ultima versione scaricata.
+Solo quando cambia l'app Android stessa (raramente) compare il messaggio "Aggiorna all'ultima versione" per reinstallare l'APK.
