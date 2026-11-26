@@ -18,3 +18,7 @@ Ogni volta che il gioco viene aggiornato, GitHub compila da solo un APK nuovo.
 ## Aggiornamento automatico
 All'avvio l'app controlla se c'è una versione nuova del gioco: se c'è la scarica da sola (barra di avanzamento) e poi parte il gioco; se hai già l'ultima, il gioco parte subito. Senza internet parte l'ultima versione scaricata.
 Solo quando cambia l'app Android stessa (raramente) compare il messaggio "Aggiorna all'ultima versione" per reinstallare l'APK.
+
+## Windows (.exe)
+In **Releases → Monsters Island – ultima versione** scarica **MonstersIsland-Setup.exe** e installalo (Windows potrebbe avvisare che l'editore è sconosciuto: "Ulteriori informazioni" → "Esegui comunque").
+All'avvio il gioco controlla se c'è una versione nuova, la scarica da solo e poi parte. F11 = schermo intero.

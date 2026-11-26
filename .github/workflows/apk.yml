@@ -34,7 +34,8 @@ jobs:
           cp android/app/src/main/assets/index.html index.html
           cp android/app/src/main/assets/three.min.js three.min.js
           SHELL_V=$(grep -o 'SHELL = [0-9]*' android/app/src/main/java/com/jobbyboy/monstersisland/MainActivity.java | grep -o '[0-9]*')
-          echo "{\"code\": ${GITHUB_RUN_NUMBER}, \"game\": ${GITHUB_RUN_NUMBER}, \"shell\": ${SHELL_V}}" > version.json
+          WIN_V=$(grep -o "const SHELL = [0-9]*" windows/main.js | grep -o "[0-9]*")
+          echo "{\"code\": ${GITHUB_RUN_NUMBER}, \"game\": ${GITHUB_RUN_NUMBER}, \"shell\": ${SHELL_V}, \"win\": ${WIN_V}}" > version.json
           cat version.json
       - uses: actions/upload-artifact@v4
         with:
@@ -52,3 +53,32 @@ jobs:
             index.html
             three.min.js
           make_latest: true
+
+  windows:
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Prepara il gioco
+        shell: bash
+        run: |
+          mkdir -p windows/game
+          curl -sSL https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js -o windows/game/three.min.js
+          sed 's#https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js#three.min.js#' index.html > windows/game/index.html
+      - name: Compila l'installer .exe
+        working-directory: windows
+        shell: bash
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+        run: |
+          npm install --no-audit --no-fund
+          npx electron-builder --win nsis --publish never
+          ls dist
+      - name: Pubblica l'installer
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ultima
+          files: windows/dist/MonstersIsland-Setup.exe

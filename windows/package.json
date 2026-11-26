@@ -1,0 +1,29 @@
+{
+  "name": "monsters-island",
+  "productName": "Monsters Island",
+  "version": "1.0.0",
+  "description": "Monsters Island – La fuga di Kai",
+  "main": "main.js",
+  "author": "jobbyboy",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "electron": "31.7.7",
+    "electron-builder": "24.13.3"
+  },
+  "build": {
+    "appId": "com.jobbyboy.monstersisland",
+    "productName": "Monsters Island",
+    "artifactName": "MonstersIsland-Setup.${ext}",
+    "files": ["main.js", "splash.html", "game/**", "icon.ico"],
+    "win": { "target": "nsis", "icon": "icon.ico" },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Monsters Island",
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico"
+    }
+  }
+}

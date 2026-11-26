@@ -3,3 +3,6 @@ build/
 android/app/build/
 android/app/src/main/assets/
 local.properties
+windows/node_modules/
+windows/dist/
+windows/game/
