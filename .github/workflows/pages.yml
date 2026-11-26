@@ -21,7 +21,7 @@ jobs:
       - name: Prepara sito
         run: |
           mkdir -p site/branding
-          cp index.html manifest.webmanifest site/
+          cp index.html manifest.webmanifest privacy.html site/
           cp branding/icon-192.png branding/icon-512.png site/branding/
           touch site/.nojekyll
       - uses: actions/configure-pages@v5
