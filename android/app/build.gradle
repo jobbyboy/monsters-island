@@ -1,11 +1,11 @@
 plugins { id 'com.android.application' }
 android {
     namespace 'com.jobbyboy.monstersisland'
-    compileSdk 35
+    compileSdk 36
     defaultConfig {
         applicationId "com.jobbyboy.monstersisland"
         minSdk 24
-        targetSdk 35
+        targetSdk 36
         versionCode (System.getenv("GITHUB_RUN_NUMBER") ? System.getenv("GITHUB_RUN_NUMBER").toInteger() : 1)
         versionName "0." + (System.getenv("GITHUB_RUN_NUMBER") ?: "1")
     }
