@@ -255,7 +255,7 @@ body.shake #battle,body.shake #world{animation:shk .45s linear 2}@keyframes shk{
  #exittr b{font:700 clamp(24px,4.6vw,48px) 'Cinzel Decorative','Cinzel',Georgia,serif;text-shadow:0 0 18px #6a2fd0}
  #exittr i{font:italic clamp(14px,2vw,20px) 'Fell',Georgia,serif;opacity:.85}
  #exittr.out{opacity:0;transition:opacity .8s}
- .crlogo2 img{width:min(360px,62vw);height:auto;filter:drop-shadow(0 0 14px rgba(150,255,60,.45)) drop-shadow(0 6px 10px rgba(0,0,0,.8))}
+ .crlogo2 img{width:min(360px,62vw);height:auto}
  #ecomic .ecnav{gap:18px;color:#e8dcc4;font:700 14px Georgia,serif}
  #ecomic .cbtn{font:900 clamp(15px,2.4vh,19px) 'Cinzel',Georgia,serif;letter-spacing:.04em;color:#ffe9b8;background:linear-gradient(180deg,#7a4a24,#3a210f);border:2px solid #e2b558;border-radius:10px;padding:9px 22px;box-shadow:0 0 0 2px #22130a,0 4px 0 #1a0d04,0 0 18px rgba(255,200,90,.45);text-shadow:0 2px 0 #1a0d04;cursor:pointer;animation:cbp 1.3s ease-in-out infinite}
  #ecomic .tb2{font:900 clamp(13px,2.1vh,16px) 'Cinzel',Georgia,serif;color:#ffe9b8;background:linear-gradient(180deg,#4a2e14,#2a180a);border:2px solid #c9a24a;border-radius:10px;padding:8px 16px;opacity:.85;cursor:pointer}
@@ -265,6 +265,9 @@ body.shake #battle,body.shake #world{animation:shk .45s linear 2}@keyframes shk{
  #purpletr i:nth-child(3){width:30vmax;height:30vmax;margin:-15vmax 0 0 -15vmax;background:radial-gradient(circle,#fff 0%,rgba(230,190,255,.8) 25%,transparent 70%);animation:ptPulse 2.8s ease-in forwards}
  #purpletr.out{opacity:0;transition:opacity .9s}
  @keyframes ptIn{from{opacity:0}to{opacity:1}}@keyframes ptSpin{to{transform:rotate(360deg)}}@keyframes ptPulse{0%{transform:scale(.2);opacity:.3}80%{transform:scale(2.2);opacity:1}100%{transform:scale(6);opacity:1}}
+ #ecomic #ecnext,#ecomic #ecskip,#credits #crskip{font:900 clamp(14px,2.3vh,18px) 'Cinzel',Georgia,serif!important;letter-spacing:.04em!important;color:#ffe9b8!important;text-shadow:0 2px 0 #1a0d04}
+ #ecomic #ecnext{background:linear-gradient(180deg,#7a4a24,#3a210f)!important;border:2px solid #e2b558!important;border-radius:10px!important;padding:9px 22px!important}
+ #ecomic #ecskip,#credits #crskip{background:linear-gradient(180deg,#4a2e14,#2a180a)!important;border:2px solid #c9a24a!important;border-radius:10px!important;padding:8px 16px!important}
 </style>
 <style>
 #jring{background:radial-gradient(circle,rgba(0,0,0,.06) 0 55%,rgba(0,0,0,.16) 56% 100%)!important;border:2px solid rgba(255,255,255,.28)!important;box-shadow:none!important}
