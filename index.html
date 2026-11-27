@@ -6398,11 +6398,13 @@ loadCreatureModels();genWorld();addTreasure();S=newState();placePlayer();
 buildWorld();initBattle();resizeAll();
 ['c01','c05','c07'].forEach(id=>$('tmons').appendChild(monImg(id)));
 $('loadmsg').classList.add('hidden');$('bnew').classList.remove('hidden');if(loadSave())$('bcont').classList.remove('hidden');
-if(/eclisse|castello|test/i.test(location.search+location.hash)){window.__TEST=1;const tb=document.createElement('div');tb.id='testbox';tb.innerHTML='<div class="tbt">🧪 Modalità test (non salva)</div><button class="big" id="tcast">Castello di Lord Fang</button><button class="big" id="tecl">Altare dell\'Eclisse</button>';$('title').appendChild(tb);
+function showTestBox(){if($('testbox'))return;window.__TEST=1;const tb=document.createElement('div');tb.id='testbox';tb.innerHTML='<div class="tbt">🧪 Modalità test (non salva)</div><button class="big" id="tcast">Castello di Lord Fang</button><button class="big" id="tecl">Altare dell\'Eclisse</button>';$('title').appendChild(tb);
  const start=k=>{musicTrack('world');S=newState();S.name='Kai';S.hasBag=true;S.kaiHp=10;S.team=['c01','c05','c07','c04','c08'].filter(id=>SP[id]).map(id=>makeMon(id,46));S.items.pozione=10;S.items.superpozione=5;S.amu={};AMULETS.forEach(a=>{if(a.hidden!=='boss')S.amu[a.id]=1});NPCS.forEach(n=>{if(n.kind==='trainer'&&!n.castle)S.defeated[n.id]=true});S.conquered=S.conquered.map((v,i)=>i<NZ-1);
   if(k==='e'){S.won=true;S.conquered[NZ-1]=true;AMULETS.forEach(a=>S.amu[a.id]=1);castleFled();S.px=SUMMON.x-3;S.py=SUMMON.y+3}else{S.px=GX;S.py=SUMMON.keep[3]+22}
   S.dir='u';placePlayer();$('title').classList.add('hidden');tb.remove();mode='world';banner(k==='e'?'🧪 Test: Altare dell\'Eclisse':'🧪 Test: Castello di Lord Fang')};
  tb.querySelector('#tcast').onclick=e=>{e.stopPropagation();start('c')};tb.querySelector('#tecl').onclick=e=>{e.stopPropagation();start('e')}}
+if(/eclisse|castello|test/i.test(location.search+location.hash))showTestBox();
+{let tn=0,tt=0;$('title').addEventListener('click',e=>{if(e.target.closest('button,#testbox,input,a'))return;const n=Date.now();tn=(n-tt<1500)?tn+1:1;tt=n;if(tn>=5&&mode==='title'){tn=0;showTestBox()}})}
 let last=performance.now();
 function loop(now){const dt=Math.min(50,now-last);last=now;
  if(mode!=='title')update(dt);
