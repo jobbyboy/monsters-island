@@ -63,6 +63,7 @@ jobs:
           body: APK aggiornato automaticamente all'ultima modifica del gioco.
           files: |
             MonstersIsland.apk
+            MonstersIsland.aab
             version.json
             index.html
             three.min.js
