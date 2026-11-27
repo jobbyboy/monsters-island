@@ -4520,7 +4520,7 @@ const TR_NAMES=[[['Guardaboschi Aldric','#2563eb'],['Esploratore Brennan','#db27
  [['Veggente Lumen','#c026d3'],['Cavaliere Aurel','#be185d'],['Lord Fang, capo dei Predatori di Zanna','#b91c1c']]];
 const LINES=[['Ehi, tu! Vediamo chi ha le creature più cattive!'],['I nostri sguardi si sono incrociati: sfida!'],['Ti ho visto arrivare. Lotta con me!']];
 const TRAINERS=ZONES.map((Z,z)=>{const pool=Z.wild.map(w=>w[0]).filter(id=>rarOrder(id)<4).sort((a,b)=>rarOrder(a)-rarOrder(b));const lv=Z.lv;
- return[0,1].map(k=>{const n=1+((z+k)%3===0?2:(z>2?1:0)),team=[];for(let i=0;i<n;i++)team.push([pool[hsh(Z.n+k+i)%Math.max(1,pool.length-1)],lv[0]+1+((hsh(Z.n+i+k)%(lv[1]-lv[0]))|0)]);
+ return[0,1].map(k=>{const hh=(Math.imul(hsh(Z.n+'tk'+k)^0x5bd1e995,2654435761)>>>0)%100,n=hh<35?1:hh<70?2:hh<93?3:4,team=[];for(let i=0;i<n;i++)team.push([pool[hsh(Z.n+k+i)%Math.max(1,pool.length-1)],lv[0]+1+((hsh(Z.n+i+k)%(lv[1]-lv[0]))|0)]);
   return{n:TR_NAMES[z][k][0],c:TR_NAMES[z][k][1],team,i:LINES[(z+k)%3],o:['Accidenti... sei forte davvero.']}})});
 const GUARDS=ZONES.map((Z,z)=>{const last=z===ZONES.length-1,pool=Z.wild.map(w=>w[0]).filter(id=>rarOrder(id)<4).sort((a,b)=>rarOrder(a)-rarOrder(b)),team=pool.slice(-(last?3:3)).map((id,i)=>[id,Z.lv[1]+1+i]);
  if(last){const leg=DEX_ORDER.filter(id=>SP[id].r==='Leggendario'&&SP[id].z===z);if(leg.length)team.push([leg[0],Z.lv[1]+5])}
@@ -4974,7 +4974,7 @@ function genWorld(){
    spots.sort((a,b)=>hsh(a[0]+','+a[1])-hsh(b[0]+','+b[1]));
    for(const[x,y]of spots){if(added>=6)break;let pos=null;for(const[a,b,d]of[[0,-1,'d'],[0,1,'u'],[-1,0,'r'],[1,0,'l'],[1,-1,'d'],[-1,-1,'d'],[1,1,'u'],[-1,1,'u']]){const nx=x+a,ny=y+b,c=MAP[ny]&&MAP[ny][nx];if((c==='.'||c===','||c==='f')&&!isR(nx,ny)){pos=[nx,ny,(a!==0&&b!==0)?(b<0?'d':'u'):d];break}}
     if(!pos||Math.abs(pos[0]-GX)<3||NPCS.some(n=>Math.max(Math.abs(n.x-pos[0]),Math.abs(n.y-pos[1]))<9))continue;
-    const k=hsh(Z.n+x+','+y),nT=1+(z>=3?1:0)+(k%3===0?1:0),team=[];for(let i=0;i<nT;i++)team.push([pool[(k>>(i*3))%pool.length],Z.lv[0]+((k>>(i*2+5))%Math.max(1,Z.lv[1]-Z.lv[0]+1))]);
+    const k=hsh(Z.n+x+','+y),rr_=(Math.imul(k^0x5bd1e995,2654435761)>>>0)%100,nT=rr_<35?1:rr_<70?2:rr_<93?3:4,team=[];for(let i=0;i<nT;i++)team.push([pool[(k>>(i*3))%pool.length],Z.lv[0]+((k>>(i*2+5))%Math.max(1,Z.lv[1]-Z.lv[0]+1))]);
     MAP[pos[1]][pos[0]]='.';NPCS.push({id:'x'+z+'_'+added,kind:'trainer',x:pos[0],y:pos[1],dir:pos[2],name:EXN[(k>>4)%EXN.length],c:EXC[k%EXC.length],team,i:[['Questa strada è dei Predatori di Zanna. Paga il pedaggio... con le tue creature!'],['Ehi tu! Nessuno passa da qui senza combattere.'],['Lord Fang paga bene chi ti ferma, naufrago.']][k%3],o:['Tsk... passa pure, per stavolta.'],z});added++}}
   // altari misteriosi lungo le vie
   {const isR=(x,y)=>MAP[y]&&MAP[y][x]==='=';const cand=[];for(let y=y0+5;y<y0+ZH-5;y++)for(let x=6;x<W-6;x++){if(!isR(x,y))continue;const h_=isR(x-1,y)&&isR(x+1,y),v_=isR(x,y-1)&&isR(x,y+1);if(!(h_^v_))continue;const off=h_?[[0,-1],[0,1]]:[[-1,0],[1,0]];for(const[a,b]of off){const nx=x+a,ny=y+b,c=MAP[ny]&&MAP[ny][nx];if((c==='.'||c===',')&&!isR(nx,ny))cand.push([nx,ny])}}
