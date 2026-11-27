@@ -5026,9 +5026,9 @@ let mode='title',steps=0,calm=0,curZone=-1;
 const DV={u:[0,-1],d:[0,1],l:[-1,0],r:[1,0]},YAW={d:0,u:Math.PI,l:-Math.PI/2,r:Math.PI/2};
 function npcAnim(o,name){if(!o||!o.mx||!o.clips||o.cur===name)return;const cl=o.clips.find(a=>a.name===name);if(!cl)return;const a=o.mx.clipAction(cl);a.reset().fadeIn(.2).play();if(name==='Walk'){a.timeScale=cl.duration/1.3;a.weight=.75}if(o.curA&&o.curA!==a)o.curA.fadeOut(.2);o.curA=a;o.cur=name}
 function npcPatrol(n,o,t){if(n.kind==='guard'||n.kind==='shop'||n.kind==='altar'||n.sentinel)return npcPos(n);if(o&&o.altar){return npcPos(n)}if(!n.home)n.home=[n.x,n.y];
- if(n.mv){const k=Math.min(1,(t-n.mv.t0)/650);if(k>=1){n.mv=null;n.pt=t+1800+Math.random()*3200;npcAnim(o,'Idle')}else return[n.mv.fx+(n.x-n.mv.fx)*k,n.mv.fy+(n.y-n.mv.fy)*k]}
+ if(n.mv){const k=Math.min(1,(t-n.mv.t0)/650);if(k>=1){n.mv=null;n.pt=t+1800+Math.random()*3200;npcAnim(o,'Idle')}else{const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;return[n.mv.fx+(n.x-n.mv.fx)*e,n.mv.fy+(n.y-n.mv.fy)*e]}}
  if(mode==='world'&&!n.alert&&t>(n.pt||0)&&Math.abs(P.x-n.x)+Math.abs(P.y-n.y)>2){const dy=n.y>=n.home[1]+2?-1:n.y<=n.home[1]-2?1:(Math.random()<.5?-1:1),ny=n.y+dy;
-  if(Math.abs(ny-n.home[1])<=2&&!blocked(n.x,ny)&&!npcAt(n.x,ny)&&!(P.x===n.x&&(P.y===ny||P.ty===ny))){n.mv={fx:n.x,fy:n.y,t0:t};n.y=ny;n.dir=dy<0?'u':'d';npcAnim(o,'Walk')}else n.pt=t+1000+Math.random()*1500}
+  if(Math.abs(ny-n.home[1])<=2&&!blocked(n.x,ny)&&!npcAt(n.x,ny)&&!(P.x===n.x&&(P.y===ny||P.ty===ny))){n.mv={fx:n.x,fy:n.y,t0:t};n.y=ny;n.dir=dy<0?'u':'d';npcAnim(o,'Walk');return[n.mv.fx,n.mv.fy]}else n.pt=t+1000+Math.random()*1500}
  return[n.x,n.y]}
 function npcPos(n){if(n.kind==='guard'&&S.defeated[n.id])return[n.x-1,n.y];return[n.x,n.y]}
 function npcAt(x,y){return NPCS.find(n=>{const[a,b]=npcPos(n);return a===x&&b===y})}
