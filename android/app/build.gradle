@@ -23,13 +23,16 @@ android {
     buildTypes {
         debug {
             debuggable true
+            buildConfigField "boolean", "PLAY_STORE", "false"
             if (System.getenv("MI_KEYSTORE")) signingConfig signingConfigs.upload
         }
         release {
             minifyEnabled false
+            buildConfigField "boolean", "PLAY_STORE", "true"
             if (System.getenv("MI_KEYSTORE")) signingConfig signingConfigs.upload
         }
     }
     compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    buildFeatures { buildConfig true }
     androidResources { noCompress 'html', 'js' }
 }

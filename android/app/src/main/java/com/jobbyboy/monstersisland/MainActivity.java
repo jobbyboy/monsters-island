@@ -173,7 +173,7 @@ public class MainActivity extends Activity {
         String url = useDownloaded ? Uri.fromFile(html).toString() : "file:///android_asset/index.html";
         web.loadUrl(url);
         web.postDelayed(() -> { splash.setVisibility(View.GONE); web.setVisibility(View.VISIBLE); }, 900);
-        if (askShell) web.postDelayed(this::askApkUpdate, 2500);
+        if (askShell && !BuildConfig.PLAY_STORE) web.postDelayed(this::askApkUpdate, 2500); // la versione Google Play si aggiorna solo tramite lo Store
     }
 
     private void askApkUpdate() {
