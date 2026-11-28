@@ -5127,8 +5127,8 @@ function genWorld(){LAKES=[];SUMMON=null;
   // un solo grande lago, un'area si' e una no
   if(z>=1){for(let y=y0+1;y<y0+ZH;y++)for(let x=0;x<W;x++)if(MAP[y][x]==='~')MAP[y][x]='.'}
   // castello di Lord Fang e santuario dell'Eclisse
-  if(z===NZ-1){const Y0=y0;{const y0=Y0+12;const FW=y0+42,BW=y0+13,CL=GX-20,CR=GX+20,AX=GX,AY=Y0+6;
-   for(let y=Y0+1;y<BW;y++)for(let x=1;x<W-1;x++)MAP[y][x]=(x===1||x===W-2||y===Y0+1||y===BW-1)?'#':'a';
+  if(z===NZ-1){const Y0=y0;{const y0=Y0+12;const FW=y0+42,BW=y0+13,CL=GX-20,CR=GX+20,AX=GX,AY=Y0+8;
+   for(let y=Y0;y<BW;y++)for(let x=1;x<W-1;x++)MAP[y][x]=(x===1||x===W-2||y===Y0||y===BW-1)?'#':'a';
    for(let y=AY+6;y<BW;y++)MAP[y][GX]='=';
    {const FY=BW-15,JY=BW-6;for(let x=GX-13;x<=GX+13;x++)MAP[JY][x]='=';for(let y=FY+3;y<=JY;y++){MAP[y][GX-13]='=';MAP[y][GX+13]='='}for(let yy=FY-2;yy<=FY+2;yy++)for(let xx=GX-15;xx<=GX-11;xx++)MAP[yy][xx]=(Math.abs(yy-FY)<=1&&Math.abs(xx-GX+13)<=1)?'F':'=';FOUNTS.push([GX-13,FY]);MAGIC.push({id:'MGsanct',x:GX+13,y:FY,z,castle:1,big:1});window.__SFY=FY}
    for(let y=BW;y<=y0+49;y++)for(let x=CL-2;x<=CR+2;x++)MAP[y][x]='.';
